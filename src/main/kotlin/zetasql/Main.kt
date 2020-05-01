@@ -148,6 +148,26 @@ object Main {
         throw Exception("resolvedStatement is ${resolvedStatement.nodeKindString()}")
     }
 
+    // Walk current directory, run formatter and return exit code 1 if there is any change.
+    private fun formatAll() {
+        var rc = 0
+        var paths = listOf(".")
+        if args.length > 1 {
+            paths = args.slice(1..)
+        }
+        for (path in paths) {
+            File(path).walkTopDown().forEach {
+                val input = File(it).readText()
+                val formatted = format(input)
+                if input != formatted {
+                    rc = 1
+                }
+                File(it).writeText(formatted)
+            }
+        }
+        exitProcess(rc)
+    }
+
     @JvmStatic
     fun main(args: Array<String>) {
         try {
@@ -158,6 +178,7 @@ object Main {
                 "analyze-print" -> analyzePrint(input)
                 "analyze-print-with-bqschema" -> analyzePrintWithBQSchema(input)
                 "extract-table" -> extractTable(input)
+                "format-all" -> formatAll()
                 else -> throw Exception("unknown command:" + args[0])
             }
             println(str)
