@@ -20,10 +20,11 @@ dependencies {
     // implementation(group= "com.google.zetasql", name= "zetasql-types", version= "2020.03.2")
     // implementation(group= "com.google.zetasql", name= "zetasql-jni-channel", version= "2020.03.2")
     implementation(files(
-        "../bazel-bin/java/com/google/zetasql/client_jar.jar",
-        "../bazel-bin/java/com/google/zetasql/types_jar.jar",
-        "../bazel-bin/java/com/google/zetasql/jni_channel_jar.jar",
-        "../bazel-bin/java/com/google/zetasql/jni_channel_linux_jar.jar"
+        // "../bazel-bin/java/com/google/zetasql/client_jar.jar",
+        "./build/client_jar.jar",
+        "./build/types_jar.jar",
+        "./build/jni_channel_jar.jar",
+        "./build/jni_channel_linux_jar.jar"
     ))
     implementation(group= "io.netty", name= "netty-transport", version= "4.1.34.Final")
     implementation(group= "io.netty", name= "netty-common", version= "4.1.34.Final")
